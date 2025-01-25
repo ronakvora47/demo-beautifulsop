@@ -37,3 +37,6 @@ def scrape_titles(request):
     else:
         print('Non-AJAX request or incorrect method')
         return render(request, 'scrape_titles.html')
+
+def hello(request):
+    return render(request, 'hello.html')

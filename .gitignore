@@ -1,0 +1,29 @@
+# Python-related
+*.pyc
+*.pyo
+__pycache__/
+*.pyd
+
+# Django-specific
+db.sqlite3
+/media/
+/staticfiles/
+
+# Virtual environment
+env/
+venv/
+
+# VSCode (optional, if you're using it)
+.vscode/
+
+# IDEs and editors
+*.swp
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Logs and debug
+*.log
+
+# Secrets
+.env

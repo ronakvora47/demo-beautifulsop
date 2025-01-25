@@ -40,3 +40,7 @@ def scrape_titles(request):
 
 def hello(request):
     return render(request, 'hello.html')
+
+
+def fun(request):
+    return render(request,'fun.html')

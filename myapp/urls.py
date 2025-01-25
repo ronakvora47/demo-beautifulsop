@@ -22,5 +22,6 @@ urlpatterns = [
     path('scrape-titles/', views.scrape_titles, name='scrape_titles'),
     path('hello/', views.hello, name='hello'),
     path('fun/', views.fun, name='fun'),
+    path('main/', views.main, name='main'),
     
 ]

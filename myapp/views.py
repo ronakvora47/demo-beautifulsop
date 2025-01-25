@@ -44,3 +44,7 @@ def hello(request):
 
 def fun(request):
     return render(request,'fun.html')
+
+
+def main(request):
+    return render(request,'main.html')

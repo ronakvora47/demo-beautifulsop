@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrape Titles</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scrape Titles from Commodity Online</h1>
+    <p>Click the button below to scrape titles from the page:</p>
+    <button id="scrapeButton">Scrape Titles</button>
+
+    <div class="results" id="results" style="display: none;">
+        <h2>Scraped Titles</h2>
+        <ul id="titleList"></ul>
+    </div>
+
+    <div class="error" id="error" style="display: none;"></div>
+
+    <script>
+        document.getElementById('scrapeButton').addEventListener('click', function () {
+            const resultsDiv = document.getElementById('results');
+            const titleList = document.getElementById('titleList');
+            const errorDiv = document.getElementById('error');
+        
+            // Clear previous results and error
+            resultsDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+            titleList.innerHTML = '';
+        
+            // Make an AJAX request to the Django scrape_titles view
+            fetch('/scrape-titles/', {
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+                .then(response => {
+                    // Ensure response is valid JSON
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const titles = data.titles;
+                    console.log('------------',titles)
+        
+                    if (titles.length > 0) {
+                        resultsDiv.style.display = 'block';
+                        titles.forEach(title => {
+                            const li = document.createElement('li');
+                            li.textContent = title;
+                            titleList.appendChild(li);
+                        });
+                    } else {
+                        errorDiv.style.display = 'block';
+                        errorDiv.textContent = 'No titles found on the page.';
+                    }
+                })
+                .catch(error => {
+                    errorDiv.style.display = 'block';
+                    errorDiv.textContent = `Failed to fetch data: ${error.message}`;
+                });
+        });
+            </script>
+</body>
+</html>

@@ -48,3 +48,7 @@ def fun(request):
 
 def main(request):
     return render(request,'main.html')
+
+
+def ronak(request):
+    return render(request,'ronak.html')
